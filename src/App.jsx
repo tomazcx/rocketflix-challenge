@@ -1,11 +1,6 @@
 import "./style.css"
 import shuffle from "./shuffle.svg"
 import { Movie } from "./Movie"
-import {
-    API_KEY, BASE_URL,
-    IMG_URL,
-    language,
-  } from './api.js'
 import axios from "axios"
 import { useState } from "react"
 
@@ -29,7 +24,7 @@ export const App = () => {
             const movie = {
              title: data.title,
              desc: data.overview,
-             poster: `https://image.tmdb.org/t/p/w500${data.poster_path}`
+             poster: `${import.meta.env.VITE_IMG_URL}${data.poster_path}`
             }
             setMovieState(true)
             setMovieData(movie)
@@ -45,7 +40,7 @@ export const App = () => {
             <h1 className="text-white font-bold text-4xl text-center">Não sabe o que assistir?</h1>
             {movieState ? <Movie poster={movieData.poster} title={movieData.title} desc={movieData.desc}/> : <></>}
            
-            <button onClick={() => fetchMovie(BASE_URL, API_KEY, language)}>
+            <button onClick={() => fetchMovie(import.meta.env.VITE_BASE_URL, import.meta.env.VITE_API_KEY, import.meta.env.VITE_LANGUAGE)}>
                 <img src={shuffle} alt="" width="30px" />
                 <strong className="text-sm">Encontrar filme</strong>
 
